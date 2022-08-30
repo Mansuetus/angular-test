@@ -1,17 +1,17 @@
 (function () {
 'use strict';
 
-angular.module('ShoppingListApp', [])
+angular.module('ShoppingListCheckOff', [])
 .controller('ToBuyController', ToBuyController)
-.controller('BoughtController', BoughtController)
-.service('ShoppingListService', ShoppingListService);
+.controller('AlreadyBoughtController', AlreadyBoughtController)
+.service('ShoppingListCheckOffService', ShoppingListCheckOffService);
 
-ToBuyController.$inject = ['ShoppingListService'];
-function ToBuyController(ShoppingListService) {
+ToBuyController.$inject = ['ShoppingListCheckOffService'];
+function ToBuyController(ShoppingListCheckOffService) {
   var tobuyList = this;
-  tobuyList.items = ShoppingListService.getItems();
+  tobuyList.items = ShoppingListCheckOffService.getItems();
   tobuyList.buyItem = function (itemIndex) {
-    ShoppingListService.buyItem(itemIndex);
+    ShoppingListCheckOffService.buyItem(itemIndex);
   };
   tobuyList.Error = function () {
     if ((tobuyList.items === undefined) ||
@@ -25,10 +25,10 @@ function ToBuyController(ShoppingListService) {
 
 }
 
-BoughtController.$inject = ['ShoppingListService'];
-function BoughtController(ShoppingListService) {
+AlreadyBoughtController.$inject = ['ShoppingListCheckOffService'];
+function AlreadyBoughtController(ShoppingListCheckOffService) {
   var boughtList = this;
-  boughtList.items  =  ShoppingListService.getboughtItems();
+  boughtList.items  =  ShoppingListCheckOffService.getboughtItems();
   boughtList.Error = function () {
     if ((boughtList.items === undefined) ||
         (boughtList.items !== undefined) && (boughtList.items.length > 0)) {
@@ -43,7 +43,7 @@ function BoughtController(ShoppingListService) {
 }
 
 
-function ShoppingListService() {
+function ShoppingListCheckOffService() {
   var service = this;
   var items = [
     {name: "cookies",quantity: 10},
